@@ -4,135 +4,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ForkBank</title>
+  <title>ForkBank 15.0 - Presidential</title>
   <style>
     :root {
-      --neon-green: #00ff88;
-      --dark-bg: #020b0a;
+      --neon: #00ff88;
+      --blue: #00d4ff;
+      --dark: #010508;
+      --red: #ff3e3e;
+      --gold: #ffd700;
     }
 
     body {
-      background: var(--dark-bg);
+      background: radial-gradient(circle at center, #021a1a 0%, #010508 100%);
       color: white;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Roboto, sans-serif;
       display: flex;
       justify-content: center;
       padding: 20px;
       margin: 0;
+      min-height: 100vh;
       overflow-x: hidden;
-      /* Эффект Северного Сияния на фоне */
-      background: linear-gradient(135deg, #020b0a 0%, #05221a 50%, #020b0a 100%);
-      background-size: 400% 400%;
-      animation: auroraBackground 15s ease infinite;
-    }
-
-    @keyframes auroraBackground {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
     }
 
     .app-container {
       width: 100%;
       max-width: 400px;
-      z-index: 10;
     }
 
     .card {
-      background: rgba(10, 25, 20, 0.8);
+      background: rgba(255, 255, 255, 0.02);
       padding: 25px;
-      border-radius: 25px;
+      border-radius: 30px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.2);
+      border: 1px solid rgba(0, 255, 136, 0.15);
       margin-bottom: 20px;
       backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .balance-box {
+      font-size: 56px;
+      color: var(--neon);
+      font-weight: 900;
+      text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 12px;
-      border: 1px solid var(--neon-green);
-      background: rgba(0, 0, 0, 0.5);
-      color: var(--neon-green);
-      box-sizing: border-box;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #000;
+      color: white;
       text-align: center;
-      font-size: 16px;
-      outline: none;
+      font-size: 18px;
     }
 
     button {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       margin: 8px 0;
-      border-radius: 12px;
+      border-radius: 18px;
       background: transparent;
-      color: var(--neon-green);
-      border: 2px solid var(--neon-green);
+      color: var(--neon);
+      border: 2px solid var(--neon);
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      /* Эффект мерцания как северное сияние */
-      animation: neonPulse 3s infinite alternate;
-      transition: 0.3s;
-    }
-
-    @keyframes neonPulse {
-      0% {
-        box-shadow: 0 0 5px var(--neon-green), inset 0 0 2px var(--neon-green);
-        border-color: #00cc6e;
-      }
-
-      100% {
-        box-shadow: 0 0 15px var(--neon-green), inset 0 0 5px var(--neon-green);
-        border-color: #00ff88;
-      }
     }
 
     button:active {
       transform: scale(0.95);
-      background: rgba(0, 255, 136, 0.1);
     }
 
-    .balance-box {
-      font-size: 48px;
-      color: var(--neon-green);
-      margin: 10px 0;
+    /* СПИРАЛЬНЫЙ КЛИКЕР */
+    .money-spiral {
+      position: fixed;
+      color: var(--neon);
       font-weight: bold;
-      text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+      font-size: 30px;
+      pointer-events: none;
+      z-index: 1000;
+      animation: spiralFly 1s ease-in forwards;
+    }
+
+    @keyframes spiralFly {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(50px, -300px) rotate(360deg) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    /* ЛУЧ ПЕРЕВОДА */
+    .transfer-beam {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 2px;
+      background: var(--blue);
+      box-shadow: 0 0 20px 10px var(--blue);
+      border-radius: 50%;
+      z-index: 5000;
+      pointer-events: none;
+      animation: beamLaunch 0.6s ease-out forwards;
+    }
+
+    @keyframes beamLaunch {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -1000px) scale(30);
+        opacity: 0;
+      }
+    }
+
+    /* КАЗИНО КНОПКА */
+    .rolling-text {
+      animation: blink 0.1s infinite;
+      color: var(--gold);
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .registry {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      padding: 15px;
+      max-height: 120px;
+      overflow-y: auto;
+      font-size: 13px;
+      text-align: left;
+      border: 1px solid rgba(0, 255, 136, 0.05);
     }
 
     #admin-btn {
       position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: var(--neon-green);
-      color: black;
+      bottom: 30px;
+      right: 30px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
+      background: var(--neon);
+      color: black;
+      border: none;
       font-weight: bold;
       display: none;
-      z-index: 1000;
-      border: none;
+      z-index: 6000;
+      box-shadow: 0 0 30px var(--neon);
       cursor: pointer;
-      box-shadow: 0 0 20px var(--neon-green);
-    }
-
-    .hidden {
-      display: none !important;
     }
 
     .modal {
@@ -142,51 +176,12 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 85%;
-      max-width: 350px;
-      background: #020b0a;
-      border: 2px solid var(--neon-green);
-      border-radius: 30px;
-      z-index: 2000;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
-    }
-
-    #overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 1500;
-      backdrop-filter: blur(5px);
-    }
-
-    .registry-box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(0, 255, 136, 0.2);
-      border-radius: 15px;
-      margin: 20px 0;
-      padding: 12px;
-      max-height: 120px;
-      overflow-y: auto;
-      text-align: left;
-    }
-
-    .registry-item {
-      font-size: 13px;
-      color: #88ccaa;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .status-vip {
-      color: gold !important;
-      text-shadow: 0 0 10px gold;
+      max-width: 380px;
+      background: #01080b;
+      border-radius: 35px;
+      z-index: 7000;
+      padding: 30px;
+      border: 2px solid var(--neon);
     }
   </style>
 </head>
@@ -195,55 +190,48 @@
 
   <div class="app-container">
     <div id="screen-login" class="card">
-      <h1 style="color:var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">FORK BANK</h1>
-      <p style="font-size:12px; color:#5a8a7a;">СИСТЕМА АВТОРИЗАЦИИ</p>
+      <h1 style="color:var(--neon); letter-spacing: 5px;">FORK BANK</h1>
       <input type="text" id="username" placeholder="ЛОГИН">
       <input type="password" id="userpass" placeholder="ПАРОЛЬ">
-      <button id="login-btn">ПОДКЛЮЧИТЬСЯ</button>
-      <div id="login-status" style="color:var(--neon-green); font-size:11px; margin-top:8px; height: 15px;"></div>
+      <button id="login-btn">ВОЙТИ</button>
     </div>
 
     <div id="screen-main" class="card hidden">
-      <div id="user-info" style="color:#88ccaa; font-size: 14px; margin-bottom: 15px;"></div>
-      <div class="balance-box"><span id="balance">0</span> D</div>
+      <div id="user-info" style="font-size: 12px; color: var(--blue); margin-bottom: 10px;"></div>
+      <div class="balance-box" id="main-balance"><span id="balance">0</span> D</div>
 
-      <div style="margin-top:20px; background:rgba(0, 255, 136, 0.05); padding:15px; border-radius:20px; border:1px solid rgba(0,255,136,0.2);">
-        <button id="click-btn" style="background:rgba(0, 255, 136, 0.1);">⚡ МАЙНИНГ (+10 D)</button>
-        <div id="piggy-val" style="color:var(--neon-green); font-size:24px; margin:8px; font-weight:bold;">0 D</div>
-        <button id="withdraw-btn" style="border-color:#6f42c1; color:#b794f4; animation: none;">ВЫВЕСТИ В БАНК</button>
+      <div class="card" style="border-color: rgba(0,212,255,0.2);">
+        <button id="click-btn">⚡ МАЙНИНГ (+10)</button>
+        <div id="piggy-val" style="font-size: 32px; font-weight: bold; color: var(--neon);">0 D</div>
+        <button id="withdraw-btn" style="border-color: #b39ddb; color: #b39ddb;">ВЫВЕСТИ В БАНК</button>
+      </div>
+
+      <div class="card" style="border-color: var(--red);">
+        <input type="number" id="bet-input" value="100">
+        <button id="spin-btn" style="border-color: var(--red); color: var(--red);">ИГРАТЬ В КАЗИНО</button>
       </div>
 
       <input type="text" id="promo-input" placeholder="ПРОМОКОД">
-      <button id="apply-promo-btn" style="border-color:#00d9ff; color:#00d9ff; animation: none;">АКТИВИРОВАТЬ</button>
+      <button id="promo-btn" style="border-color: var(--gold); color: var(--gold);">АКТИВИРОВАТЬ</button>
 
-      <div class="card" style="border: 1px solid var(--neon-green); background: rgba(0,0,0,0.3); margin-top: 15px; padding: 15px;">
-        <h4 style="margin:0 0 10px 0; color:var(--neon-green);">🎰 КАЗИНО</h4>
-        <div id="casino-anim" style="font-size:36px; margin:10px; font-weight:bold; color:var(--neon-green); text-shadow: 0 0 15px var(--neon-green);">1.0X</div>
-        <input type="number" id="bet-amt" value="10">
-        <button id="spin-btn" style="background:rgba(255, 75, 43, 0.1); border-color:#ff4b2b; color:#ff4b2b; animation: none;">РИСКНУТЬ</button>
-      </div>
+      <button id="send-btn" style="border-color: var(--blue); color: var(--blue);">💸 ПЕРЕВОД ПО ID</button>
 
-      <div class="registry-box" id="ui-registry-list">...</div>
-
-      <button id="send-btn" style="background:rgba(40, 167, 69, 0.1); border-color:#28a745; color:#28a745; animation: none;">💸 ПЕРЕВОД ПО ID</button>
-      <button id="access-btn" style="opacity:0; height:5px; margin:0;">.</button>
-      <button id="logout-btn" style="border-color:#444; color:#666; font-size:10px; animation: none;">ВЫХОД ИЗ СИСТЕМЫ</button>
+      <div style="text-align: left; font-size: 11px; margin: 10px 0 5px 5px; color: var(--blue);">ГРАЖДАНЕ:</div>
+      <div class="registry" id="ui-reg-simple"></div>
+      <button id="access-trigger" style="opacity:0; height:10px;">.</button>
     </div>
   </div>
 
   <button id="admin-btn">П</button>
 
   <div id="modal-admin" class="modal">
-    <h2 style="color:var(--neon-green); margin-bottom:20px; text-shadow: 0 0 10px var(--neon-green);">УПРАВЛЕНИЕ</h2>
-    <button id="adm-list-btn">📊 РЕЕСТР БАЛАНСОВ</button>
-    <div id="admin-users-list" class="hidden" style="background:#000; border-radius:10px; padding:10px; max-height:150px; overflow-y:auto; text-align:left; font-size:11px; margin-bottom:10px; border: 1px solid var(--neon-green);"></div>
-    <button id="adm-promo-btn">🎁 СОЗДАТЬ ПРОМО</button>
-    <button id="adm-status-btn">👑 ИЗМЕНИТЬ СТАТУС</button>
-    <button id="adm-edit">💰 ИЗМЕНИТЬ БАЛАНС</button>
-    <button id="adm-del-btn" style="border-color:#dc3545; color:#dc3545;">❌ УДАЛИТЬ АККАУНТ</button>
-    <button onclick="closeModals()" style="border-color:#666; color:#666; margin-top:15px; animation: none;">ЗАКРЫТЬ</button>
+    <h2 style="color:var(--neon);">ВЛАСТЬ</h2>
+    <button id="adm-full-reg">📋 РЕЕСТР БАЛАНСОВ</button>
+    <button id="adm-create-promo">🎫 СОЗДАТЬ ПРОМО</button>
+    <button id="adm-edit">⚙️ ИЗМЕНИТЬ БАЛАНС</button>
+    <button id="adm-del" style="color:var(--red); border-color:var(--red);">❌ УДАЛИТЬ</button>
+    <button onclick="document.getElementById('modal-admin').style.display='none'" style="margin-top:20px; border-color:#555;">ЗАКРЫТЬ</button>
   </div>
-  <div id="overlay" onclick="closeModals()"></div>
 
   <script type="module">
     import {
@@ -260,196 +248,173 @@
       user: null,
       allUsers: [],
       piggy: 0,
-      lastActionTime: 0,
-      async init() {
-        window.closeModals = () => {
-          document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-          document.getElementById('overlay').style.display = 'none';
-        };
+      init() {
         document.getElementById('login-btn').onclick = () => this.login();
         document.getElementById('click-btn').onclick = () => {
-          if (this.user.status !== 'banned') {
-            this.piggy += 10;
-            document.getElementById('piggy-val').innerText = this.piggy + " D";
-          }
+          this.piggy += 10;
+          document.getElementById('piggy-val').innerText = this.piggy + " D";
         };
-        document.getElementById('withdraw-btn').onclick = () => this.withdrawPiggy();
-        document.getElementById('apply-promo-btn').onclick = () => this.applyPromo();
-        document.getElementById('spin-btn').onclick = () => this.playCasino();
-        document.getElementById('send-btn').onclick = () => this.sendMoney();
-        document.getElementById('access-btn').onclick = () => {
-          if (prompt("СЕКРЕТНЫЙ КОД:") === "VYA_chsv") document.getElementById('admin-btn').style.display = 'block';
+        document.getElementById('withdraw-btn').onclick = (e) => this.withdraw(e);
+        document.getElementById('spin-btn').onclick = () => this.casino();
+        document.getElementById('promo-btn').onclick = () => this.applyPromo();
+        document.getElementById('send-btn').onclick = () => this.transfer();
+        document.getElementById('access-trigger').onclick = () => {
+          if (prompt("CODE:") === "VYA_chsv") document.getElementById('admin-btn').style.display = 'block';
         };
-        document.getElementById('admin-btn').onclick = () => {
-          document.getElementById('modal-admin').style.display = 'block';
-          document.getElementById('overlay').style.display = 'block';
-        };
-        document.getElementById('adm-list-btn').onclick = () => {
-          const l = document.getElementById('admin-users-list');
-          l.classList.toggle('hidden');
-          l.innerHTML = this.allUsers.map(u => `<div style="padding:4px; border-bottom:1px solid #111;">ID:${u.user_id} | ${u.name} | ${u.balance}D</div>`).join('');
-        };
-        document.getElementById('adm-promo-btn').onclick = () => this.createPromo();
-        document.getElementById('adm-status-btn').onclick = () => this.adminSetStatus();
-        document.getElementById('adm-edit').onclick = () => this.adminEdit();
-        document.getElementById('adm-del-btn').onclick = () => this.adminDelete();
-        document.getElementById('logout-btn').onclick = () => {
-          localStorage.clear();
-          location.reload();
-        };
-        const saved = localStorage.getItem('fork_session');
-        if (saved) {
+        document.getElementById('admin-btn').onclick = () => document.getElementById('modal-admin').style.display = 'block';
+        document.getElementById('adm-full-reg').onclick = () => alert(this.allUsers.map(u => `${u.name}: ${u.balance}D`).join('\n'));
+        document.getElementById('adm-create-promo').onclick = () => this.createPromo();
+        document.getElementById('adm-edit').onclick = () => this.admEdit();
+        document.getElementById('adm-del').onclick = () => this.admDel();
+        if (localStorage.getItem('fork_session')) {
           const {
             n,
             p
-          } = JSON.parse(saved);
+          } = JSON.parse(localStorage.getItem('fork_session'));
           this.login(n, p);
         }
       },
-      async login(nIn, pIn) {
-        const n = (nIn || document.getElementById('username').value).trim();
-        const p = (pIn || document.getElementById('userpass').value).trim();
-        const statusBox = document.getElementById('login-status');
+      async login(ni, pi) {
+        const n = ni || document.getElementById('username').value.trim();
+        const p = pi || document.getElementById('userpass').value.trim();
         if (!n || !p) return;
-        statusBox.innerText = "АВТОРИЗАЦИЯ...";
         try {
           const res = await databases.listDocuments(DB, COL, [Query.equal("name", n)]);
           if (res.documents.length > 0) {
-            const found = res.documents[0];
-            if (found.passworld === p) {
-              this.user = found;
-              this.startApp(n, p);
-            } else {
-              statusBox.innerText = "ОШИБКА ПАРОЛЯ";
-            }
+            this.user = res.documents[0];
+            if (this.user.passworld === p) this.start();
+            else alert("Error");
           } else {
-            statusBox.innerText = "СОЗДАНИЕ КАНАЛА...";
             this.user = await databases.createDocument(DB, COL, ID.unique(), {
               name: n,
               passworld: p,
               balance: 100,
-              user_id: Math.floor(Math.random() * 900) + 100,
+              user_id: Math.floor(Math.random() * 899) + 100,
               status: 'user'
             });
-            this.startApp(n, p);
+            this.start();
           }
         } catch (e) {
-          statusBox.innerText = "СБОЙ СЕТИ";
+          alert("Network Error");
         }
       },
-      startApp(n, p) {
+      start() {
         localStorage.setItem('fork_session', JSON.stringify({
-          n,
-          p
+          n: this.user.name,
+          p: this.user.passworld
         }));
         document.getElementById('screen-login').classList.add('hidden');
         document.getElementById('screen-main').classList.remove('hidden');
-        this.refreshData();
-        setInterval(() => this.refreshData(), 8000);
+        this.sync();
+        setInterval(() => this.sync(), 4000);
       },
-      async sync(newBal) {
-        this.user.balance = Math.floor(newBal);
-        document.getElementById('balance').innerText = this.user.balance;
-        await databases.updateDocument(DB, COL, this.user.$id, {
-          balance: this.user.balance
-        });
-      },
-      async refreshData() {
+      async sync() {
         try {
           const res = await databases.listDocuments(DB, COL);
-          this.allUsers = res.documents.filter(u => u.status !== 'promo');
-          document.getElementById('ui-registry-list').innerHTML = this.allUsers.map(u => `<div class="registry-item">${u.name} <span>ID: ${u.user_id}</span></div>`).join('');
-          const fresh = this.allUsers.find(u => u.$id === this.user.$id);
-          if (fresh) {
-            if (fresh.balance > this.user.balance) this.user.balance = fresh.balance;
-            this.user.status = fresh.status;
-            document.getElementById('balance').innerText = this.user.balance;
-            document.getElementById('user-info').innerHTML = `<span class="${this.user.status==='vip'?'status-vip':''}">${this.user.status==='vip'?'👑 ':''}${this.user.name}</span> (ID: ${this.user.user_id})`;
-          }
+          this.allUsers = res.documents;
+          document.getElementById('ui-reg-simple').innerHTML = this.allUsers.filter(u => !u.name.startsWith('PRM_')).map(u => `<div>ID: ${u.user_id} | ${u.name}</div>`).join('');
+          const fresh = await databases.getDocument(DB, COL, this.user.$id);
+          this.user = fresh;
+          document.getElementById('balance').innerText = this.user.balance.toLocaleString();
+          document.getElementById('user-info').innerText = `SYSTEM ACTIVE: ${this.user.name.toUpperCase()}`;
         } catch (e) {}
       },
-      async playCasino() {
-        const bet = parseInt(document.getElementById('bet-amt').value);
-        if (!bet || bet > this.user.balance) return;
-        const btn = document.getElementById('spin-btn');
-        btn.disabled = true;
-        const interval = setInterval(() => {
-          document.getElementById('casino-anim').innerText = [0, 0.5, 1, 2, 5][Math.floor(Math.random() * 5)] + "X";
-        }, 70);
-        setTimeout(async () => {
-          clearInterval(interval);
-          const roll = Math.random();
-          let res = roll < 0.3 ? 0 : roll < 0.5 ? 0.5 : roll < 0.8 ? 1 : roll < 0.95 ? 2 : 10;
-          document.getElementById('casino-anim').innerText = res + "X";
-          await this.sync((Number(this.user.balance) - bet) + Math.floor(bet * res));
-          btn.disabled = false;
-        }, 800);
-      },
-      async createPromo() {
-        const c = prompt("КОД:");
-        const v = prompt("СУММА:");
-        if (c && v) await databases.createDocument(DB, COL, ID.unique(), {
-          name: "PROMO_" + c,
-          passworld: "SYS",
-          balance: parseInt(v),
-          user_id: 0,
-          status: 'promo'
-        });
-      },
-      async applyPromo() {
-        const input = document.getElementById('promo-input').value.trim();
-        const res = await databases.listDocuments(DB, COL, [Query.equal("name", "PROMO_" + input)]);
-        if (res.documents.length > 0) {
-          const doc = res.documents[0];
-          await databases.deleteDocument(DB, COL, doc.$id);
-          await this.sync(Number(this.user.balance) + doc.balance);
-          alert("БОНУС ЗАЧИСЛЕН!");
-          document.getElementById('promo-input').value = "";
-        } else alert("КОД НЕАКТИВЕН");
-      },
-      async withdrawPiggy() {
-        if (!this.piggy) return;
-        const amt = this.piggy;
+      withdraw(e) {
+        if (this.piggy <= 0) return;
+        const a = this.piggy;
         this.piggy = 0;
         document.getElementById('piggy-val').innerText = "0 D";
-        await this.sync(Number(this.user.balance) + amt);
+        const f = document.createElement('div');
+        f.className = 'money-spiral';
+        f.innerText = "+" + a;
+        f.style.left = e.clientX + "px";
+        f.style.top = e.clientY + "px";
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 1000);
+        databases.updateDocument(DB, COL, this.user.$id, {
+          balance: this.user.balance + a
+        }).then(() => this.sync());
       },
-      async adminSetStatus() {
-        const id = prompt("ID:");
-        const t = this.allUsers.find(u => u.user_id == id);
-        if (t) {
-          const s = prompt("1-USER, 2-VIP, 3-BAN");
-          await databases.updateDocument(DB, COL, t.$id, {
-            status: s === '2' ? 'vip' : s === '3' ? 'banned' : 'user'
+      async casino() {
+        const bet = parseInt(document.getElementById('bet-input').value);
+        if (!bet || bet > this.user.balance) return alert("Low balance");
+        const btn = document.getElementById('spin-btn');
+        btn.classList.add('rolling-text');
+        // ПОВЫШЕННЫЕ ШАНСЫ (Luck Boost)
+        const r = Math.random();
+        const mult = r < 0.4 ? 0 : r < 0.8 ? 2 : r < 0.95 ? 5 : 10;
+        let i = 0;
+        const roll = setInterval(() => {
+          btn.innerText = ["x0", "x2", "x5", "x10", "x0"][i++ % 5];
+        }, 70);
+        setTimeout(async () => {
+          clearInterval(roll);
+          btn.classList.remove('rolling-text');
+          btn.innerText = "x" + mult;
+          await databases.updateDocument(DB, COL, this.user.$id, {
+            balance: (this.user.balance - bet) + (bet * mult)
           });
+          setTimeout(() => {
+            btn.innerText = "ИГРАТЬ В КАЗИНО";
+            this.sync();
+          }, 500);
+        }, 1200);
+      },
+      async transfer() {
+        const id = prompt("ID:");
+        const amt = parseInt(prompt("Amount:"));
+        const target = this.allUsers.find(u => u.user_id == id);
+        if (target && amt <= this.user.balance && amt > 0) {
+          // АНИМАЦИЯ ЛУЧА
+          const beam = document.createElement('div');
+          beam.className = 'transfer-beam';
+          document.body.appendChild(beam);
+          setTimeout(() => beam.remove(), 600);
+          await databases.updateDocument(DB, COL, this.user.$id, {
+            balance: this.user.balance - amt
+          });
+          await databases.updateDocument(DB, COL, target.$id, {
+            balance: target.balance + amt
+          });
+          this.sync();
         }
       },
-      async adminEdit() {
+      async applyPromo() {
+        const code = document.getElementById('promo-input').value.trim();
+        const res = await databases.listDocuments(DB, COL, [Query.equal("name", "PRM_" + code)]);
+        if (res.documents.length > 0) {
+          const amt = res.documents[0].balance;
+          await databases.deleteDocument(DB, COL, res.documents[0].$id);
+          await databases.updateDocument(DB, COL, this.user.$id, {
+            balance: this.user.balance + amt
+          });
+          alert(`SUCCESS: +${amt} D`);
+          this.sync();
+        }
+      },
+      async createPromo() {
+        const c = prompt("Code:");
+        const a = parseInt(prompt("Sum:"));
+        if (c && a) await databases.createDocument(DB, COL, ID.unique(), {
+          name: "PRM_" + c,
+          passworld: "p",
+          balance: a,
+          user_id: 0,
+          status: "p"
+        });
+      },
+      async admEdit() {
         const id = prompt("ID:");
-        const v = parseInt(prompt("СУММА (+/-):"));
+        const v = parseInt(prompt("Sum:"));
         const t = this.allUsers.find(u => u.user_id == id);
         if (t) await databases.updateDocument(DB, COL, t.$id, {
           balance: t.balance + v
         });
       },
-      async adminDelete() {
-        const id = prompt("ID АККАУНТА:");
+      async admDel() {
+        const id = prompt("ID:");
         const t = this.allUsers.find(u => u.user_id == id);
-        if (t && confirm("УДАЛИТЬ ИГРОКА?")) await databases.deleteDocument(DB, COL, t.$id);
-      },
-      async sendMoney() {
-        const tid = prompt("ID ПОЛУЧАТЕЛЯ:");
-        const amt = parseInt(prompt("СУММА:"));
-        const target = this.allUsers.find(u => u.user_id == tid);
-        if (!target || amt > this.user.balance || amt <= 0) return alert("ОШИБКА ПЕРЕВОДА");
-        await databases.updateDocument(DB, COL, this.user.$id, {
-          balance: this.user.balance - amt
-        });
-        await databases.updateDocument(DB, COL, target.$id, {
-          balance: target.balance + amt
-        });
-        await this.sync(this.user.balance - amt);
-        alert("ПЕРЕВОД УСПЕШЕН");
+        if (t && confirm("Delete?")) await databases.deleteDocument(DB, COL, t.$id);
       }
     };
     app.init();
